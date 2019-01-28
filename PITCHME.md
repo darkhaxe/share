@@ -22,7 +22,7 @@ List<String> classIdList = students.stream()
 .map((Student t)->{
 	return t.getClassId();
 }).collect(Collectors.toList());
-
+--- 
 //进一步简化书写
 List<String> classIdList = students.stream()
 .map((Student t)-> t.getClassId())
@@ -44,7 +44,7 @@ Map<String,List<Student>> result = students.stream()
   .collect(Collectors.groupingBy((Student t)->t.getClassId()));
 //.collect(Collectors.groupingBy(Student::getClassId);
 ```
----  
+ 
 ### stream-api处理Map
 ```java
 Map<String,List<String>> result = new HashMap<>();

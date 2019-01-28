@@ -22,7 +22,9 @@ List<String> classIdList = students.stream()
 .map((Student t)->{
 	return t.getClassId();
 }).collect(Collectors.toList());
+```
 --- 
+```java
 //进一步简化书写
 List<String> classIdList = students.stream()
 .map((Student t)-> t.getClassId())
@@ -32,7 +34,9 @@ List<String> classIdList = students.stream()
 List<String> classIdList = students.stream()
 .map(Student::getClassId)
 .collect(Collectors.toList());
-
+```
+--- 
+```java
 //假如需要对学生属性做一些过滤
 List<String> classIdList = students.stream()
 .filter((Student t)->t.getAge() > 12)
@@ -44,7 +48,7 @@ Map<String,List<Student>> result = students.stream()
   .collect(Collectors.groupingBy((Student t)->t.getClassId()));
 //.collect(Collectors.groupingBy(Student::getClassId);
 ```
- 
+--- 
 ### stream-api处理Map
 ```java
 Map<String,List<String>> result = new HashMap<>();
@@ -59,6 +63,9 @@ for(Map.Entry<String,List<String>>  element: result.entrySet()){
 	List<Student> students = element.getValue();
 	//...
 }
+```
+---
+```java
 //并且还可以将不同的流操作链接起来
 students.stream()
   .filter((Student t)->t.getAge() > 12)
@@ -67,7 +74,7 @@ students.stream()
 	//...
 });
 ```
-
+---
 ### stream-api进行分组
 ```java
 //假如要在List循环记录多个数组,如何操作
@@ -100,7 +107,7 @@ List<Student> highGradeStudents = res.get("high");
 List<Student> lowGradeStudents =  res.get("low");
 List<Student> middleGradeStudent = res.get("middle");
 ```
-
+---
 ```java
 //那么对于这种情况,包含两种维度的遍历,java8要如何实现呢
 int countOfClass3_7 = 0;
@@ -118,8 +125,8 @@ for(Student t: students){
 展开一次for循环与两次for循环相差不过几毫秒,但是做到分开遍历将会使得代码清晰很多,也有利于维护;
 */
 ```
+---
 ### 使用并行流加速遍历
-
 
 ```java
 for(List<Student> student:classDao.getStudents()){
@@ -131,10 +138,12 @@ classDao.getStudents().parallelStream()
 .forEach((Student student)->{
 	boolean res = registerService.doRegisterOne(student);
 });
-/*
+```
+---
 然而.这种写法其实是有安全隐患的,parallelStream不能指定特定线程池,并且是全局共享,也就是说假如有另一个
 xx方法把线程用光了,此处代码的处理速度就会急遽下降,并且还很难排查;
-*/
+---
+```java
 // java8实战推荐使用CompletableFuture,并指定线程池
 List<CompletableFuture<boolean>> futures = classDao.getStudents().stream()
 .map((Student student) ->  
@@ -150,7 +159,7 @@ List<Boolean> resultList = futures.stream()
   .map(CompletableFuture::join)  
   .filter(Objects::nonNull).collect(toList());
 ```
-
+---
 
 本文只是对java8做了入门级的介绍,也是对阅读<java8实战>这本书的一个小的总结,更多深入特性推荐阅读原书了解:)
 

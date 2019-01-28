@@ -1,6 +1,6 @@
  ## 使用java8的stream-api简化集合操作.md
 
-
+---
  ## 为什么需要 Stream
 
   Stream 作为 Java 8 的一大亮点，它与 java.io 包里的 InputStream 和 OutputStream 是完全不同的概念。它也不同于 SAX 对 XML 解析的 Stream，也不是 Amazon Kinesis 对大数据实时处理的 Stream。Java 8 中的 Stream 是对集合（Collection）对象功能的增强，它专注于对集合对象进行各种非常便利、高效的聚合操作（aggregate operation），或者大批量数据操作 (bulk data operation)。Stream API 借助于同样新出现的 Lambda 表达式,对常规集合操作提供了许多抽象,大大提高了java代码的编程效率和可读性。
